@@ -6,7 +6,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-const dashboardId = '577'
+const dashboardId = '742'
+let dashboardRef: LookerEmbedDashboard
+
 /**
  * Ensure front-end URI (e.g. http://localhost:5173) is added to
  * Looker Admin > Embed > Embedded Domain Allowlist to allow JS events to work
@@ -20,17 +22,19 @@ LookerEmbedSDK.createDashboardWithId(dashboardId)
   .on('dashboard:run:complete', (event: DashboardEvent) => {
     // do something
     console.log(event)
+
+    dashboardRef.updateFilters({
+      'Delivery Country': 'Canada',
+    })
   })
   .on('dashboard:filters:changed', (event: DashboardEvent) => {
     // do something
     console.log(event)
   })
-
   .build()
   .connect()
   .then((dashboard: LookerEmbedDashboard) => {
-    // do something
-    console.log(dashboard)
+    dashboardRef = dashboard
   })
   .catch((error) => {
     console.log(error)
