@@ -1,22 +1,26 @@
-import "./style.css";
 import {
   DashboardEvent,
+  // DashboardTileEvent,
+  // DashboardTileExploreEvent,
+  // DrillMenuEvent,
+  // DrillModalExploreEvent,
+  // EnvClientDialogEvent,
+  // ExploreEvent,
   // LookEvent,
-  LookerEmbedDashboard,
-  // LookerEmbedLook,
   LookerEmbedSDK,
-} from "@looker/embed-sdk";
+  // PageChangedEvent,
+  // PagePropertiesChangedEvent,
+  // SessionStatus,
+  // SessionTokenRequest,
+} from '@looker/embed-sdk'
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div id="embed-dashboard" class="embed-dashboard">
   </div>
-`;
+`
 
-// const instanceUrl = 'dev.looker.rbobrowski.com'
-const instanceUrl = "gcpm244.cloud.looker.com";
-const dashboardId = "40";
-let dashboardRef: LookerEmbedDashboard;
-// let lookRef: LookerEmbedLook;
+const instanceUrl = 'gcpm244.cloud.looker.com'
+const dashboardId = '40'
 
 /**
  * Ensure front-end URI (e.g. http://localhost:5173) is added to
@@ -25,66 +29,51 @@ let dashboardRef: LookerEmbedDashboard;
  */
 LookerEmbedSDK.init(
   instanceUrl,
-  "http://localhost:3001/api/signed-url-for-embed"
-);
+  'http://localhost:3001/api/signed-url-for-embed'
+)
 
 LookerEmbedSDK.createDashboardWithId(dashboardId)
   .withNext()
-  .withTheme("minimal")
-  .appendTo("#embed-dashboard")
-  .on("dashboard:run:complete", (event: DashboardEvent) => {
-    // do something
-    console.log(event);
-
-    dashboardRef.updateFilters({
-      "Delivery Country": "Canada",
-    });
-
-    setTimeout(() => {
-      const { options } = event.dashboard;
-      const { elements, layouts } = options;
-
-      if (elements && layouts) {
-        console.log(elements);
-        console.log(layouts);
-
-        elements["71"].title = "Updated Test Title";
-
-        // Call dashboard.setOptions to display only the set of filtered components
-        dashboardRef.setOptions({
-          layouts,
-          elements,
-        });
-      }
-    }, 500);
+  .withTheme('minimal')
+  .appendTo('#embed-dashboard')
+  .on('dashboard:loaded', (event: DashboardEvent) => {
+    console.log(`Dashboard loaded: ${event}`)
   })
-  .on("dashboard:filters:changed", (event: DashboardEvent) => {
-    // do something
-    console.log(event);
-  })
+  // .on('dashboard:run:start', (event: DashboardEvent) => {})
+  // .on('dashboard:run:complete', (event: DashboardEvent) => {})
+  // .on('dashboard:run:download', (event: DashboardEvent) => {})
+  // .on('dashboard:edit:start', (event: DashboardEvent) => {})
+  // .on('dashboard:edit:cancel', (event: DashboardEvent) => {})
+  // .on('dashboard:save:complete', (event: DashboardEvent) => {})
+  // .on('dashboard:delete:complete', (event: DashboardEvent) => {})
+  // .on('dashboard:tile:start', (event: DashboardTileEvent) => {})
+  // .on('dashboard:tile:complete', (event: DashboardTileEvent) => {})
+  // .on('dashboard:tile:download', (event: DashboardTileEvent) => {})
+  // .on('dashboard:tile:explore', (event: DashboardTileExploreEvent) => ({ cancel: true }))
+  // .on('dashboard:tile:view', (event: DashboardTileExploreEvent) => ({ cancel: true }))
+  // .on('dashboard:filters:changed', (event: DashboardEvent) => {})
+  // .on('look:ready', (event: LookEvent) => {})
+  // .on('look:run:start', (event: LookEvent) => {})
+  // .on('look:run:complete', (event: LookEvent) => {})
+  // .on('look:save:complete', (event: LookEvent) => {})
+  // .on('look:delete:complete', (event: LookEvent) => {})
+  // .on('explore:ready', (event: ExploreEvent) => {})
+  // .on('explore:run:start', (event: ExploreEvent) => {})
+  // .on('explore:run:complete', (event: ExploreEvent) => {})
+  // .on('explore:state:changed', (event: ExploreEvent) => {})
+  // .on('drillmenu:click', (event: DrillMenuEvent) => ({ cancel: true }))
+  // .on('drillmodal:download', (event: DrillModalExploreEvent) => {})
+  // .on('drillmodal:explore', (event: DrillModalExploreEvent) => ({ cancel: true }))
+  // .on('page:changed', (event: PageChangedEvent) => {})
+  // .on('page:properties:changed', (event: PagePropertiesChangedEvent) => {})
+  // .on('session:tokens', (event: SessionTokenRequest) => {})
+  // .on('session:status', (event: SessionStatus) => {})
+  // .on('env:client:dialog', (event: EnvClientDialogEvent) => {})
   .build()
   .connect()
-  .then((dashboard: LookerEmbedDashboard) => {
-    dashboardRef = dashboard;
+  .then(() => {
+    console.log('Done')
   })
-  .catch((error) => {
-    console.log(error);
-  });
-
-// const lookId = 32;
-
-// LookerEmbedSDK.createLookWithId(lookId)
-//   .withTheme("minimal")
-//   .appendTo("#embed-dashboard")
-//   .on("look:run:complete", (event: LookEvent) => {
-//     // do something
-//     console.log(event);
-//   })
-//   .build()
-//   .connect()
-//   .then((look: LookerEmbedLook) => {
-//     lookRef = look;
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+  .catch((error: any) => {
+    console.error(error)
+  })

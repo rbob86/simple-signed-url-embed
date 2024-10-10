@@ -29,5 +29,5 @@ LOOKERSDK_CLIENT_SECRET=[API secret]
 1. `cd frontend`
 2. `npm install` to install dependencies
 3. `npm run dev` to run frontend
-4. In `frontend/src/main.ts`, change dashboardId value to a valid dashboard id in your Looker instance.
+4. In `frontend/src/main.ts`, change instanceUrl to your target Looker instance and dashboardId to a valid dashboard in your Looker instance.
 5. Ensure frontend URI (e.g. http://localhost:5173) is added to Admin > Embed > Embedded Domain Allowlist in your Looker instance to allow JS events to work cross-domain.
