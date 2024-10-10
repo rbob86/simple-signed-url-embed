@@ -22,7 +22,7 @@ LOOKERSDK_CLIENT_SECRET=[API secret]
 ```
 
 1. In `backend/app.ts`, update the params variable in the `/api/signed-url-for-embed` route to match your Looker setup, including the **models** property.
-2. `npm run start` to run backend
+2. `npm run dev` to run backend
 
 ### Frontend
 
