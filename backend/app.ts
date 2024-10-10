@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express'
-import { IEmbedSsoParams } from '@looker/sdk'
-import cors from 'cors'
-import { LookerNodeSDK } from '@looker/sdk-node'
 import dotenv from 'dotenv'
+import express, { Request, Response } from 'express'
+import cors from 'cors'
+import { IEmbedSsoParams } from '@looker/sdk'
+import { LookerNodeSDK } from '@looker/sdk-node'
 
 dotenv.config()
 
@@ -44,7 +44,6 @@ app.get('/api/signed-url-for-embed', async (req: Request, res: Response) => {
       // 'develop',
       // 'deploy',
       // 'support_access_toggle',
-      // 'use_sql_runner',
       // 'clear_cache_refresh',
       // 'see_drill_overlay',
       // 'manage_spaces',
