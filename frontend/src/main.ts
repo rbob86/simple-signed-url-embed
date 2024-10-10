@@ -13,6 +13,7 @@ import {
   // SessionStatus,
   // SessionTokenRequest,
 } from '@looker/embed-sdk'
+import './style.css'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div id="embed-dashboard" class="embed-dashboard">
